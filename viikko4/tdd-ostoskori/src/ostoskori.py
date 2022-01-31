@@ -3,39 +3,49 @@ from ostos import Ostos
 
 class Ostoskori:
     def __init__(self):
-        self.ostoskori = []
-        # ostoskori tallettaa Ostos-oliota, yhden per korissa oleva Tuote
+        self.korin_sisalto = []
 
     def tavaroita_korissa(self):
-        return len(self.ostoskori)
-        # kertoo korissa olevien tavaroiden lukumäärän
-        # eli jos koriin lisätty 2 kpl tuotetta "maito", tulee metodin palauttaa 2 
-        # samoin jos korissa on 1 kpl tuotetta "maito" ja 1 kpl tuotetta "juusto", tulee metodin palauttaa 2 
+        tavaroiden_lukumaara = 0
+
+        if self.korin_sisalto:
+            for ostos in self.korin_sisalto:
+               tavaroiden_lukumaara += ostos.lukumaara()
+  
+        return tavaroiden_lukumaara
 
     def hinta(self):
-        summa = 0
-        for ostos in self.ostoskori:
-            summa += ostos.hinta()
-        return summa
-        # kertoo korissa olevien ostosten yhteenlasketun hinnan
+        korin_hinta = 0
+        
+        if self.korin_sisalto:
+            for ostos in self.korin_sisalto:
+                korin_hinta += ostos.hinta()
+        
+        return korin_hinta
 
     def lisaa_tuote(self, lisattava: Tuote):
-        ostos = Ostos(lisattava)
-
-        if lisattava.nimi() not in self.ostoskori:
-            self.ostoskori.append(ostos)
+        if any(ostos.tuotteen_nimi() == lisattava.nimi() for ostos in self.korin_sisalto):
+            for ostos in self.korin_sisalto:
+                if ostos.tuotteen_nimi() == lisattava.nimi():
+                    ostos.muuta_lukumaaraa(1)
         else:
-            ostos.muuta_lukumaaraa(1)
+            self.korin_sisalto.append(Ostos(lisattava))
 
     def poista_tuote(self, poistettava: Tuote):
-        # poistaa tuotteen
-        pass
+        paivitetty_korin_sisalto = []
+        
+        for ostos in self.korin_sisalto:
+            if ostos.tuotteen_nimi() == poistettava.nimi():
+                ostos.muuta_lukumaaraa(-1)
+                if ostos.lukumaara() > 0:
+                    paivitetty_korin_sisalto.append(ostos)
+            else:
+                paivitetty_korin_sisalto.append(ostos)
+
+        self.korin_sisalto = paivitetty_korin_sisalto
 
     def tyhjenna(self):
-        pass
-        # tyhjentää ostoskorin
+        self.korin_sisalto = []
 
     def ostokset(self):
-        return self.ostoskori
-        # palauttaa listan jossa on korissa olevat ostos-oliot
-        # kukin ostos-olio siis kertoo mistä tuotteesta on kyse JA kuinka monta kappaletta kyseistä tuotetta korissa on
+        return self.korin_sisalto
