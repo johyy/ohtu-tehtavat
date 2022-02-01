@@ -29,15 +29,17 @@ class Ostoskori:
             if ostos.tuotteen_nimi() == tavara.tuotteen_nimi():
                 tavara.muuta_lukumaaraa(1)
                 return
-                
+
         self.ostoskori.append(ostos)
 
     def poista_tuote(self, poistettava: Tuote):
-        for ostos in self.ostoskori:
-            if poistettava.nimi() == ostos.nimi():
-                ostos.muuta_lukumaaraa(-1)
-                if ostos.lukumaara() == 0:
-                    self.ostoskori.remove(ostos)
+        self.maara -= 1
+
+        for tavara in self.ostoskori:
+            if poistettava.nimi() == tavara.tuotteen_nimi():
+               tavara.muuta_lukumaaraa(-1)
+            if tavara.lukumaara() == 0:
+                    self.ostoskori.remove(tavara)
 
     def tyhjenna(self):
         pass
