@@ -1,4 +1,4 @@
-<h3>Referaatti kandidaattityöstä "Scrumban-menetelmän käyttö ketterässä ohjelmistokeshityksessä"</h3>
+<h3>Referaatti kandidaattityöstä "Scrumban-menetelmän käyttö ketterässä ohjelmistokehityksessä"</h3>
 
 
 Kalle Ilveksen kandidaattityö aloitetaan käymällä läpi sekä Scrumin, että Kanbanin periaatteita, sekä historiaa. Jonkin verran käydään myös läpi itse ketterän ohjelmistokehityksen syntyhistoriaa; syitä miksi ketterä ohjelmistokehitys on syrjäyttänyt raskasrakenteisempia tapoja tuottaa ohjelmistoa, sekä miten syrjäyttäminen on tapahtunut.
